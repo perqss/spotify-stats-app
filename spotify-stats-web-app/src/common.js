@@ -1,6 +1,10 @@
 import { spotify } from ".";
 
 export const spotifyGreen = '#1DB954'
+export const mainColor = '#1e1f1e'
+export const ligherMainColor = '#2f302f'
+export const darkerMainColor = '#0f0f0f'
+
 export const scopes = [
     'user-read-currently-playing',
     'user-read-recently-played',
@@ -34,6 +38,7 @@ export const getCodeFromUrl = () => {
 const EXPIRATION_TIME = 3600 * 1000;
 
 export const setLocalAccessToken = (token) => {
+    setExpirationTimestamp();
     localStorage.setItem('token', token);
 };
 
@@ -47,6 +52,24 @@ export const getLocalAccessToken = () => {
 
 export const getLocalRefreshToken = () => {
     return localStorage.getItem('refresh_token');
+};
+
+export const setExpirationTimestamp = () => {
+	const time = new Date(Date.now() + EXPIRATION_TIME).getTime(); // add 1 hour to current time
+	localStorage.setItem('token_expiration_timestamp', time);
+};
+
+export const getExpirationTimestamp = () => {
+    return localStorage.getItem('token_expiration_timestamp');
+};
+
+export const checkIfTokenHasExpired = async () => {
+    const time = new Date(Date.now()).getTime();
+    console.log(spotify().getAccessToken())
+    console.log(getLocalAccessToken())
+    if (getExpirationTimestamp() <= time) {
+        await getRefreshToken();
+    }
 };
 
 export const checkAuth = async () => {
@@ -75,19 +98,56 @@ export const checkAuth = async () => {
 	}
 };
 
-export const authWithCode = async (code) => fetch('https://accounts.spotify.com/api/token', {
-  method: 'POST',
-  headers: {
-    'content-type': 'application/x-www-form-urlencoded',
-  },
-  body: new URLSearchParams({
-    client_id: clientId,
-    grant_type: 'authorization_code',
-    code,
-    redirect_uri: frontendUrl,
-    code_verifier: localStorage.getItem('code_verifier'),
-  }),
-});
+export const getTokens = async (code) => {
+    const url = "https://accounts.spotify.com/api/token";
+    const payload = {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+            client_id: clientId,
+            grant_type: 'authorization_code',
+            code,
+            redirect_uri: frontendUrl,
+            code_verifier: localStorage.getItem('code_verifier'),
+        }),
+    }
+
+    const response = await fetch(url, payload);
+    const responseJson = await response.json();
+    setLocalAccessToken(responseJson.access_token);
+    setExpirationTimestamp();
+    setLocalRefreshToken(responseJson.refresh_token);
+    console.log(responseJson.refresh_token)
+    spotify().setAccessToken(responseJson.access_token);
+};
+
+export const getRefreshToken = async () => {
+
+    // refresh token that has been previously stored
+    const url = "https://accounts.spotify.com/api/token";
+    const payload = {
+       method: 'POST',
+       headers: {
+         'Content-Type': 'application/x-www-form-urlencoded'
+       },
+       body: new URLSearchParams({
+         grant_type: 'refresh_token',
+         refresh_token: getLocalRefreshToken(),
+         client_id: clientId
+       }),
+     }
+
+    const response = await fetch(url, payload);
+    const responseJson = await response.json();
+     
+    setLocalAccessToken(responseJson.access_token);
+    setExpirationTimestamp();
+    setLocalRefreshToken(responseJson.refresh_token);
+    console.log(responseJson.refresh_token)
+    spotify().setAccessToken(responseJson.access_token);
+};
 
 export const getLoginUrl = async () => {
 

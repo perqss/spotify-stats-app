@@ -2,22 +2,21 @@ import React, { useState, useEffect } from 'react';
 import logo from '../logo.svg';
 import '../App.css';
 import { Button } from '@mui/material';
-import  { spotifyGreen, getLoginUrl, getTokenFromUrl, setLocalAccessToken, getLocalAccessToken, getCodeFromUrl, authWithCode, setLocalRefreshToken } from '../common';
+import  { spotifyGreen, getLoginUrl, getTokenFromUrl, setLocalAccessToken, getLocalAccessToken, getCodeFromUrl, getTokens, 
+  setLocalRefreshToken, getRefreshToken, checkIfTokenHasExpired } from '../common';
 import { useNavigate } from 'react-router-dom';
 import TopArtists from './TopArtists';
+import { spotify } from '..';
 
 const Login = (props) => {
   const navigate = useNavigate();
   const [loginUrl, setLoginUrl] = useState('');
+  //const [token, setToken] = useState('');
   useEffect(() => {
     const code = getCodeFromUrl();
-    const fetchAuthWithCode = async () => {
-        const response = await authWithCode(code);
-        const responseJson = await response.json();
-        console.log(responseJson);
-        setLocalAccessToken(responseJson.access_token);
-        setLocalRefreshToken(responseJson.refresh_token);
-        console.log(localStorage.getItem('token'));
+    const afterLogIn = async () => {
+        await getTokens(code);
+        navigate('/top-artists');
     }
     //const spotifyToken = getTokenFromUrl().access_token;
     
@@ -29,9 +28,18 @@ const Login = (props) => {
     //                       })
     // }
     if (code) {
-        fetchAuthWithCode();
+        afterLogIn();
+    } else if (getLocalAccessToken() !== 'undefined') {
+        const refreshToken = async () => {
+          await checkIfTokenHasExpired();
+          navigate('/top-artists');
+        }
+
+        refreshToken();
     }
   }, []);
+
+  // if (token in localstorage) navigate to top artists
 
   useEffect(() => {
     getLoginUrl().then(login => setLoginUrl(login))
