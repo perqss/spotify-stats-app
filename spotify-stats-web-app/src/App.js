@@ -14,7 +14,6 @@ function App() {
   useEffect(() => {
     const fetchLogged = async () => {
       try {
-        console.log('///')
 				//await checkAuth();
         //setIsAuthenticated(true);
 			} catch (e) {

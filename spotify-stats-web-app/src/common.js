@@ -2,7 +2,7 @@ import { spotify } from ".";
 
 export const spotifyGreen = '#1DB954'
 export const mainColor = '#1e1f1e'
-export const ligherMainColor = '#2f302f'
+export const lighterMainColor = '#2f302f'
 export const darkerMainColor = '#0f0f0f'
 
 export const scopes = [
@@ -65,8 +65,8 @@ export const getExpirationTimestamp = () => {
 
 export const checkIfTokenHasExpired = async () => {
     const time = new Date(Date.now()).getTime();
-    console.log(spotify().getAccessToken())
-    console.log(getLocalAccessToken())
+    //console.log(spotify().getAccessToken())
+    //console.log(getLocalAccessToken())
     if (getExpirationTimestamp() <= time) {
         await getRefreshToken();
     }
@@ -74,7 +74,7 @@ export const checkIfTokenHasExpired = async () => {
 
 export const checkAuth = async () => {
 	// No access token in storage, throw error
-    console.log('checkauth')
+    //('checkauth')
 	if (!getLocalAccessToken()) {
 		return;
 	}
@@ -90,7 +90,7 @@ export const checkAuth = async () => {
 	try {
 		// Token verified
 		await spotify().getMe();
-        console.log(spotify().getAccessToken())
+        //console.log(spotify().getAccessToken())
 		//runExpirationChecker();
 	} catch (e) {
 		// Token invalid
@@ -119,7 +119,7 @@ export const getTokens = async (code) => {
     setLocalAccessToken(responseJson.access_token);
     setExpirationTimestamp();
     setLocalRefreshToken(responseJson.refresh_token);
-    console.log(responseJson.refresh_token)
+    //console.log(responseJson.refresh_token)
     spotify().setAccessToken(responseJson.access_token);
 };
 
@@ -145,7 +145,7 @@ export const getRefreshToken = async () => {
     setLocalAccessToken(responseJson.access_token);
     setExpirationTimestamp();
     setLocalRefreshToken(responseJson.refresh_token);
-    console.log(responseJson.refresh_token)
+    //console.log(responseJson.refresh_token)
     spotify().setAccessToken(responseJson.access_token);
 };
 

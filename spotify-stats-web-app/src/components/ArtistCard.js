@@ -5,27 +5,23 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { mainColor, darkerMainColor, lighterMainColor, spotifyGreen } from '../common';
 
-export default function MediaCard() {
+const ArtistCard = (props) => {
+  console.log(props.artistInfo)
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{backgroundColor: mainColor, margin: 1}}>
       <CardMedia
-        sx={{ height: '60px' }}
-        title="green iguana"
+        sx={{ height: '200px'}}
+        image={props.artistInfo.images[0].url}
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Lizard
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+        <Typography gutterBottom variant="h7" color='white'>
+          {`${props.index}. ${props.artistInfo.name}`}
         </Typography>
       </CardContent>
-      <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
-      </CardActions>
     </Card>
   );
 }
+
+export default ArtistCard;

@@ -1,19 +1,32 @@
 import {styled} from '@mui/material/styles';
 import { ListItemButton } from '@mui/material';
 
-const colorOnSelect = '#444744'
+const colorOnSelectMenuItem = '#444744';
+const colorOnSelectSubMenuItem = '#333633';
 
 const MenuItemButton = styled(ListItemButton)(({ theme }) => ({
     '&.Mui-selected': {
-        backgroundColor: colorOnSelect,
+        backgroundColor: colorOnSelectMenuItem,
     },
     '&.Mui-selected:hover': {
-        backgroundColor: colorOnSelect,
+        backgroundColor: colorOnSelectMenuItem,
     },
     ':hover': {
-        backgroundColor: colorOnSelect,
+        backgroundColor: colorOnSelectMenuItem,
+    }
+}));
+
+const SubMenuItemButton = styled(ListItemButton)(({ theme }) => ({
+    '&.Mui-selected': {
+        backgroundColor: colorOnSelectSubMenuItem,
+    },
+    '&.Mui-selected:hover': {
+        backgroundColor: colorOnSelectSubMenuItem,
+    },
+    ':hover': {
+        backgroundColor: colorOnSelectSubMenuItem,
     }
 }));
 
 
-export {MenuItemButton};
+export { MenuItemButton, SubMenuItemButton };

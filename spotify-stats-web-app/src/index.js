@@ -9,7 +9,7 @@ import { getLocalAccessToken } from './common';
 const s = new Spotify();
 
 export const spotify = () => {
-    console.log(getLocalAccessToken())
+    //console.log(getLocalAccessToken())
     s.setAccessToken(getLocalAccessToken());
     return s;
 }
