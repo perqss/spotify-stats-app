@@ -8,6 +8,7 @@ import { AppContext } from '../App';
 const Song = (props) => {
   const setSongId = useContext(AppContext)?.setSongId;
   const setArtistId = useContext(AppContext)?.setArtistId;
+  const setOpenBottomBar = useContext(AppContext)?.setOpenBottomBar;
 
   const durationInHrMinSec = (duration) => {
     let milliseconds = Math.floor((duration % 1000) / 100),
@@ -25,7 +26,8 @@ const Song = (props) => {
   };
 
   const handleClickPlayBtn = () => {
-    setSongId(props.songInfo.id)
+    setSongId(props.songInfo.id);
+    setOpenBottomBar(true);
     setArtistId(null);
   }
   

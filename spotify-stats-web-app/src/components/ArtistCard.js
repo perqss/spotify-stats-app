@@ -8,9 +8,11 @@ import { AppContext } from '../App';
 const ArtistCard = (props) => {
   const setArtistId = useContext(AppContext)?.setArtistId;
   const setSongId = useContext(AppContext)?.setSongId;
+  const setOpenBottomBar = useContext(AppContext)?.setOpenBottomBar;
 
   const handleClickPlayBtn = () => {
     setArtistId(props.artistInfo.id);
+    setOpenBottomBar(true);
     setSongId(null);
   };
 
