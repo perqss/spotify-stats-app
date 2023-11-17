@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { getRecentlyPlayed } from '../clients/SpotifyClient';
 import Menu from '../components/Menu';
 import { List } from '@mui/material';
 import Song from '../components/Song';
 import { TailSpin } from 'react-loader-spinner';
 import BottomBar from '../components/BottomBar';
+import { AppContext } from '../App';
 
 
 const RecentlyPlayed = (props) => {
   const [songsInfo, setSongsInfo] = useState();
   const [songId, setSongId] = useState();
+  //const setId = useContext(AppContext);
 
   useEffect(() => {
     const getRecentlyPlayedWrapper = async () => {
@@ -56,11 +58,6 @@ const RecentlyPlayed = (props) => {
                 </List>
             </div>
         </div>
-        {songId &&
-            <BottomBar
-                songId={songId}
-            />
-        }
     </div>
   )
 };

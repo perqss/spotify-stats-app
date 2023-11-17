@@ -58,11 +58,6 @@ const TopSongs = (props) => {
           </List>
         </div>
       </div>
-      {songId &&
-            <BottomBar
-                songId={songId}
-            />
-        }
     </div>
   )
 };

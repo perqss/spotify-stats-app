@@ -58,11 +58,6 @@ const TopArtists = () => {
           </Grid>
         </div>
       </div>
-      {artistId ? 
-        <BottomBar
-          artistId={artistId}
-        /> : ''
-      }
     </div>
   )
 }

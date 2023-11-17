@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { List, ListItem, ListItemButton, ListItemAvatar, ListItemText, Avatar, IconButton, Icon, Divider, MenuItem } from '@mui/material';
 import { MenuItemButton, SongPlayButton } from '../components/MaterialComponentsCss';
 import PlayCircleFilledWhiteOutlinedIcon from '@mui/icons-material/PlayCircleFilledWhiteOutlined';
+import { AppContext } from '../App';
 
 
 const Song = (props) => {
+  const setSongId = useContext(AppContext)?.setSongId;
+  const setArtistId = useContext(AppContext)?.setArtistId;
 
   const durationInHrMinSec = (duration) => {
     let milliseconds = Math.floor((duration % 1000) / 100),
@@ -20,6 +23,11 @@ const Song = (props) => {
     hours === '00' ? result = minutes + ':' + seconds : result = hours + ':' + minutes + ':' + seconds;
     return result;
   };
+
+  const handleClickPlayBtn = () => {
+    setSongId(props.songInfo.id)
+    setArtistId(null);
+  }
   
   return (
     <div>
@@ -37,7 +45,8 @@ const Song = (props) => {
                 secondaryTypographyProps={{color: '#b5b2b1'}}
             />
             <SongPlayButton
-                onClick={() => props.handleSongClick(props.songInfo.id)}
+                // onClick={() => props.handleSongClick(props.songInfo.id)}
+                onClick={handleClickPlayBtn}
             >
                 <PlayCircleFilledWhiteOutlinedIcon
                     sx={{color: 'white'}}

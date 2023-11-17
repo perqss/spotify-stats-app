@@ -10,6 +10,7 @@ const BottomBar = (props) => {
 
   const chooseSrc = () => {
     if (props.songId) {
+        
         return `https://open.spotify.com/embed/track/${props.songId}?utm_source=generator`;
     } else if (props.artistId) {
         return `https://open.spotify.com/embed/artist/${props.artistId}?utm_source=generator`;

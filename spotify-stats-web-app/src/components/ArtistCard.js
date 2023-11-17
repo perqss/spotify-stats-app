@@ -1,10 +1,19 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import { CardActionArea, Card, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material';
 import { mainColor, darkerMainColor, lighterMainColor, spotifyGreen } from '../common';
 import { ArtistPlayButton } from './MaterialComponentsCss';
 import PlayCircleFilledWhiteOutlinedIcon from '@mui/icons-material/PlayCircleFilledWhiteOutlined';
+import { AppContext } from '../App';
 
 const ArtistCard = (props) => {
+  const setArtistId = useContext(AppContext)?.setArtistId;
+  const setSongId = useContext(AppContext)?.setSongId;
+
+  const handleClickPlayBtn = () => {
+    setArtistId(props.artistInfo.id);
+    setSongId(null);
+  };
+
   return (
     <Card sx={{backgroundColor: mainColor, margin: 1}}>
       <CardActionArea>
@@ -23,7 +32,7 @@ const ArtistCard = (props) => {
         </CardActions>
       </CardActionArea>
       <ArtistPlayButton
-            onClick={() => props.handleArtistClick(props.artistInfo.id)}
+            onClick={handleClickPlayBtn}
       >
         <PlayCircleFilledWhiteOutlinedIcon 
           sx={{color: 'white'}}
