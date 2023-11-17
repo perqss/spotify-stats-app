@@ -33,9 +33,9 @@ const RecentlyPlayed = (props) => {
         <div
         className='display-outer-container'
         >
-            <Menu
+            {/* <Menu
                 componentIndex={2}
-            />
+            /> */}
             <div
                 className='display-inner-container'
             >

@@ -8,23 +8,20 @@ import { TailSpin } from 'react-loader-spinner';
 import BottomBar from '../components/BottomBar';
 
 
-const TopArtists = () => {
+const TopArtists = (props) => {
   const [artistsInfo, setArtistsInfo] = useState();
-  const [artistTerm, setArtistTerm] = useState('long_term');
+  
   const [artistId, setArtistId] = useState();
 
   useEffect(() => {
     const getTopArtistsWrapper = async () => {
       setArtistsInfo(null);
-      const response = await getTopArtists(artistTerm);
+      const response = await getTopArtists(props.artistTerm);
       setArtistsInfo(response.items);
     };
     getTopArtistsWrapper();
-  }, [artistTerm])
+  }, [props.artistTerm])
 
-  const handleSongClickTopArtists = (id) => {
-    setArtistId(id);
-  };
 
   //console.log(artistsInfo)
   return (
@@ -32,10 +29,6 @@ const TopArtists = () => {
       <div 
         className='display-outer-container'
       >
-        <Menu
-          setArtistTerm={setArtistTerm}
-          componentIndex={0}
-        />
         <div 
           className='display-inner-container'
         >
@@ -45,7 +38,6 @@ const TopArtists = () => {
                 <ArtistCard
                   artistInfo={artistsInfo[index]}
                   index={index + 1}
-                  handleArtistClick={handleSongClickTopArtists}
                 />
               </Grid>
             ) : 

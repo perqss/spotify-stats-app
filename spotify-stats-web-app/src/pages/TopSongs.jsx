@@ -10,32 +10,24 @@ import BottomBar from '../components/BottomBar';
 
 const TopSongs = (props) => {
   const [songsInfo, setSongsInfo] = useState();
-  const [songTerm, setSongTerm] = useState('long_term');
   const [songId, setSongId] = useState();
 
   useEffect(() => {
     const getTopSongsWrapper = async () => {
       setSongsInfo(null);
-      const response = await getTopSongs(songTerm);
+      const response = await getTopSongs(props.songTerm);
       setSongsInfo(response.items);
     };
 
     getTopSongsWrapper();
-  }, [songTerm])
+  }, [props.songTerm])
 
-  const handleSongClickTopSongs = (id) => {
-    setSongId(id);
-  };
   console.log(songId)
   return (
     <div>
       <div
         className='display-outer-container'
       >
-        <Menu
-          setSongTerm={setSongTerm}
-          componentIndex={1}
-        />
         <div
           className='display-inner-container'
         >
@@ -46,7 +38,6 @@ const TopSongs = (props) => {
                 songInfo={songInfo}
                 index={index + 1}
                 length={songsInfo.length}
-                handleSongClick={handleSongClickTopSongs}
               />
             ) : 
             <div

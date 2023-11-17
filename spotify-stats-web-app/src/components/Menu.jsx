@@ -28,14 +28,6 @@ const Menu = (props) => {
   };
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setShowCollapse(true);
-    }, 50);
-
-    return () => clearTimeout(timeoutId);
-  }, []);
-
-  useEffect(() => {
     if (selectedMenu === 0) {
         navigate('/top-artists');
     } else if (selectedMenu === 1) {
@@ -106,7 +98,7 @@ const Menu = (props) => {
                         </ListItem>
                         {index === 0 || index === 1 ?
                             <Collapse
-                                in={selectedMenu === index && showCollapse}
+                                in={selectedMenu === index}
                             >
                                 {subMenuItems.map(subMenuItem => 
                                     <ListItem 

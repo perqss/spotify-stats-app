@@ -47,7 +47,6 @@ const Song = (props) => {
                 secondaryTypographyProps={{color: '#b5b2b1'}}
             />
             <SongPlayButton
-                // onClick={() => props.handleSongClick(props.songInfo.id)}
                 onClick={handleClickPlayBtn}
             >
                 <PlayCircleFilledWhiteOutlinedIcon
