@@ -1,3 +1,7 @@
+:root {
+  --lighterMainColor: #2f302f;
+}
+
 .App {
   text-align: center;
 }
@@ -26,6 +30,32 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.display-outer-container {
+  overflow-x: hidden; 
+  overflow-y: hidden; 
+  display: flex; 
+  flex-direction: row,;
+  background-color: var(--lighterMainColor);
+
+}
+
+.display-inner-container {
+  height: 100%;
+  width: 100%;
+  background-color: var(--lighterMainColor);
+  margin-top: 60px;
+  margin-left: 200px;
+}
+
+.loading {
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--lighterMainColor);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @keyframes App-logo-spin {

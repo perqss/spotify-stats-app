@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, List, ListItem, ListItemButton, ListItemText, ListItemIcon, Collapse } from '@mui/material';
 import MicIcon from '@mui/icons-material/Mic';
 import { mainColor } from '../common';
@@ -8,28 +8,58 @@ import { MenuItemButton, SubMenuItemButton } from './MaterialComponentsCss';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import HistoryIcon from '@mui/icons-material/History';
 import TopBar from './TopBar';
+import zIndex from '@mui/material/styles/zIndex';
+import { useNavigate } from 'react-router-dom';
 
 
 const Menu = (props) => {
-  const [selectedMenu, setSelectedMenu] = useState(0);
+  const [selectedMenu, setSelectedMenu] = useState(props.componentIndex);
   const [selectedSubMenu, setSelectedSubMenu] = useState('All Time');
   const menuItems = ['Top Artists', 'Top Songs', 'Recently Played'];
   const subMenuItems = ['All Time', 'Last 6 Months', 'Last 4 Weeks'];
   const menuIcons = [<MicIcon/>, <MusicNoteIcon/>, <HistoryIcon/>];
   const [topArtistsSubMenu, setTopArtistsSubMenu] = useState(true);
   const [topSongsSubMenu, setTopSongsSubMenu] = useState();
+  const [showCollapse, setShowCollapse] = useState(false);
+  const navigate = useNavigate();
 
   const handleClickMenuItem = (index) => {
     setSelectedMenu(index);
   };
 
-  const handleClickSubMenuItem = (subMenuItem) => {
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setShowCollapse(true);
+    }, 50);
+
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  useEffect(() => {
+    if (selectedMenu === 0) {
+        navigate('/top-artists');
+    } else if (selectedMenu === 1) {
+        navigate('/top-songs');
+    } else if (selectedMenu === 2) {
+        navigate('/recently-played');
+    }
+  }, [selectedMenu])
+
+  const setPropsTerm = (subMenuItem, setTerm) => {
     if (subMenuItem === subMenuItems[0]) {
-        props.setTerm('long_term');
+        setTerm('long_term');
     } else if (subMenuItem === subMenuItems[1]) {
-        props.setTerm('medium_term');
+        setTerm('medium_term');
     } else {
-        props.setTerm('short_term');
+        setTerm('short_term');
+    }
+  };
+
+  const handleClickSubMenuItem = (subMenuItem, index) => {
+    if (index === 0) {
+        setPropsTerm(subMenuItem, props.setArtistTerm);
+    } else if (index === 1) {
+        setPropsTerm(subMenuItem, props.setSongTerm);
     }
     setSelectedSubMenu(subMenuItem);
   };
@@ -76,7 +106,7 @@ const Menu = (props) => {
                         </ListItem>
                         {index === 0 || index === 1 ?
                             <Collapse
-                                in={selectedMenu === index}
+                                in={selectedMenu === index && showCollapse}
                             >
                                 {subMenuItems.map(subMenuItem => 
                                     <ListItem 
@@ -84,9 +114,8 @@ const Menu = (props) => {
                                         key={subMenuItem}
                                     >
                                         <SubMenuItemButton
-                                            onClick={() => handleClickSubMenuItem(subMenuItem)}
+                                            onClick={() => handleClickSubMenuItem(subMenuItem, index)}
                                             selected={selectedSubMenu === subMenuItem}
-                                            
                                         >
                                             <ListItemText
                                                 sx={{
