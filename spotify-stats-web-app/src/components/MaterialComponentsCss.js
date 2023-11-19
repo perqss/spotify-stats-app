@@ -1,6 +1,6 @@
 import {styled} from '@mui/material/styles';
-import { ListItemButton, IconButton } from '@mui/material';
-import { darkerMainColor } from '../common';
+import { ListItemButton, IconButton, Button } from '@mui/material';
+import { darkerMainColor, spotifyGreen } from '../common';
 
 const colorOnSelectMenuItem = '#444744';
 const colorOnSelectSubMenuItem = '#333633';
@@ -54,5 +54,14 @@ const ArtistPlayButton = styled(IconButton)(({ theme }) => ({
     }
 }));
 
+const SpotifyPlayButton = styled(Button)(({ theme }) => ({
+    ':hover': {
+        backgroundColor: '#26eb6b',
+    },
+    color: 'black',
+    backgroundColor: spotifyGreen
+}));
 
-export { MenuItemButton, SubMenuItemButton, SongPlayButton, ArtistPlayButton };
+
+
+export { MenuItemButton, SubMenuItemButton, SongPlayButton, ArtistPlayButton, SpotifyPlayButton };

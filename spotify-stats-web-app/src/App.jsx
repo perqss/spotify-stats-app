@@ -13,6 +13,7 @@ import { checkAuth } from './common';
 import TopBar from './components/TopBar';
 import BottomBar from './components/BottomBar';
 import Menu from './components/Menu';
+import ArtistProfile from './pages/ArtistProfile';
 
 export const AppContext = createContext();
 
@@ -89,27 +90,25 @@ function App() {
               <RecentlyPlayed/>
             </div>
           }/>
-      </Routes>
-      {/* {songId && 
-        <BottomBar
-          songId={songId}
-          open={open}
-          setOpen={setOpen}
+        <Route
+          path='/artist/:artistId'
+          element={
+            <div>
+              <Menu
+                componentIndex={3}
+                setArtistTerm={setArtistTerm}
+              />
+              <ArtistProfile/>
+            </div>
+          }
         />
-      } */}
+      </Routes>
       <BottomBar
           songId={songId}
           artistId={artistId}
           open={openBottomBar}
           setOpen={setOpenBottomBar}
         />
-      {/* {artistId &&
-        <BottomBar
-          artistId={artistId}
-          open={open}
-          setOpen={setOpen}
-        />
-      } */}
       </AppContext.Provider>
     </Router>
   );

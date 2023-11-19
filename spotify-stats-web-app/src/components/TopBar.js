@@ -19,7 +19,7 @@ const TopBar = () => {
                 flexDirection: 'row',
                 backgroundColor: darkerMainColor,
                 height: '60px',
-                top: 0,
+                top: '0px',
                 width: '100%'
             }}
         >

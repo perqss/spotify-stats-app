@@ -4,11 +4,13 @@ import { mainColor, darkerMainColor, lighterMainColor, spotifyGreen } from '../c
 import { ArtistPlayButton } from './MaterialComponentsCss';
 import PlayCircleFilledWhiteOutlinedIcon from '@mui/icons-material/PlayCircleFilledWhiteOutlined';
 import { AppContext } from '../App';
+import { useNavigate } from 'react-router-dom';
 
 const ArtistCard = (props) => {
   const setArtistId = useContext(AppContext)?.setArtistId;
   const setSongId = useContext(AppContext)?.setSongId;
   const setOpenBottomBar = useContext(AppContext)?.setOpenBottomBar;
+  const navigate = useNavigate();
 
   const handleClickPlayBtn = () => {
     setArtistId(props.artistInfo.id);
@@ -16,9 +18,16 @@ const ArtistCard = (props) => {
     setSongId(null);
   };
 
+  //console.log(props.artistInfo)
+  const handleClickAritst = () => {
+    navigate(`/artist/${props.artistInfo.id}`, {state: {id: props.artistInfo.id}});
+  };
+
   return (
     <Card sx={{backgroundColor: mainColor, margin: 1}}>
-      <CardActionArea>
+      <CardActionArea
+        onClick={handleClickAritst}
+      >
         <CardMedia
           sx={{ height: '200px'}}
           image={props.artistInfo.images[0].url}

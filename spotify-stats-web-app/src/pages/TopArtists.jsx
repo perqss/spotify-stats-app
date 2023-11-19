@@ -23,7 +23,7 @@ const TopArtists = (props) => {
   }, [props.artistTerm])
 
 
-  //console.log(artistsInfo)
+  console.log(artistsInfo)
   return (
     <div>
       <div 

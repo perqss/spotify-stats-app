@@ -9,6 +9,12 @@ export const getTopArtists = async (term) => {
     return response;
 };
 
+export const getArtist = async (id) => {
+    await checkIfTokenHasExpired();
+    const response = await spotify().getArtist(id);
+    return response;
+};
+
 export const getTopSongs = async (term) => {
     await checkIfTokenHasExpired();
     const response = await spotify().getMyTopTracks({

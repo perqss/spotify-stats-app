@@ -35,7 +35,7 @@ const Menu = (props) => {
     } else if (selectedMenu === 2) {
         navigate('/recently-played');
     }
-  }, [selectedMenu])
+  }, [selectedMenu, selectedSubMenu])
 
   const setPropsTerm = (subMenuItem, setTerm) => {
     if (subMenuItem === subMenuItems[0]) {
