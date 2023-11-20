@@ -17,23 +17,31 @@ const TopArtists = (props) => {
 
   useEffect(() => {
     const getTopArtistsWrapper = async () => {
-      //setArtistsInfo(null);
-      //console.log(artistsInfo)
-      let offsetTemp = offset;
-      let result = artistsInfo ? artistsInfo : [];
-      let response;
-      while (offsetTemp < loadAtOnce) {
-        response = await getTopArtists(props.artistTerm, offsetTemp);
-        result = result.concat(response.items);
-        offsetTemp += OFFSET;
-      }
-      if (artistsInfo) {
-        result.splice(OFFSET, 1);
-      }
-      setArtistsInfo(result);
+      const response = await getTopArtists(props.artistTerm);
+      response.items.splice(OFFSET, 1);
+      setLoadAtOnce(OFFSET);
+      setArtistsInfo(response.items);
     };
     getTopArtistsWrapper();
-  }, [props.artistTerm, loadAtOnce])
+  }, [props.artistTerm])
+
+  useEffect(() => {
+    const getNextTopArtists = async () => {
+      if (loadAtOnce > OFFSET && artistsInfo) {
+        let offsetTemp = offset;
+        let result = artistsInfo;
+        let response;
+        while (offsetTemp < loadAtOnce) {
+          response = await getTopArtists(props.artistTerm, offsetTemp);
+          result = result.concat(response.items);
+          offsetTemp += OFFSET;
+        }
+        setArtistsInfo(result);
+      }
+    }
+
+    getNextTopArtists();
+  }, [loadAtOnce])
 
   const handleClickLoadMore = () => {
     setLoadAtOnce(LOAD_AT_ONCE_LIMIT);

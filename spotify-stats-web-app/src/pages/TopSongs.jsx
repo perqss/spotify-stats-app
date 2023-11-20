@@ -18,23 +18,32 @@ const TopSongs = (props) => {
 
   useEffect(() => {
     const getTopSongsWrapper = async () => {
-      //setSongsInfo(null);
-      let offsetTemp = offset;
-      let result = songsInfo ? songsInfo : [];
-      let response;
-      while (offsetTemp < loadAtOnce) {
-        response = await getTopSongs(props.songTerm, offsetTemp);
-        result = result.concat(response.items);
-        offsetTemp += OFFSET;
-      }
-      if (songsInfo) {
-        result.splice(OFFSET, 1);
-      }
-      setSongsInfo(result);
+      const response = await getTopSongs(props.songTerm);
+      response.items.splice(OFFSET, 1);
+      setLoadAtOnce(OFFSET);
+      setSongsInfo(response.items);
     };
 
     getTopSongsWrapper();
-  }, [props.songTerm, loadAtOnce])
+  }, [props.songTerm])
+
+  useEffect(() => {
+    const getNextTopSongs = async () => {
+      if (loadAtOnce > OFFSET && songsInfo) {
+        let offsetTemp = offset;
+        let result = songsInfo;
+        let response;
+        while (offsetTemp < loadAtOnce) {
+          response = await getTopSongs(props.songTerm, offsetTemp);
+          result = result.concat(response.items);
+          offsetTemp += OFFSET;
+        }
+        setSongsInfo(result);
+      }
+    }
+
+    getNextTopSongs();
+  }, [loadAtOnce])
 
   const handleClickLoadMore = () => {
     setLoadAtOnce(LOAD_AT_ONCE_LIMIT);

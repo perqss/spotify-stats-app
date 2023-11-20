@@ -3,7 +3,8 @@ import { checkIfTokenHasExpired } from "../common";
 
 const LIMIT = 50;
 
-export const getTopArtists = async (term, offset) => {
+export const getTopArtists = async (term, offset = 0) => {
+    console.log(term)
     await checkIfTokenHasExpired();
     const response = await spotify().getMyTopArtists({
         time_range: term,
