@@ -19,7 +19,7 @@ export const getArtist = async (id) => {
     return response;
 };
 
-export const getTopSongs = async (term, offset) => {
+export const getTopSongs = async (term, offset = 0) => {
     await checkIfTokenHasExpired();
     const response = await spotify().getMyTopTracks({
         time_range: term,
@@ -38,19 +38,20 @@ export const getRecentlyPlayed = async () => {
     return response;
 };
 
-export const getRecentlyPlayedAfter = async (after) => {
+export const getTrackAudioFeatures = async (id) => {
     await checkIfTokenHasExpired();
-    const response = await spotify().getMyRecentlyPlayedTracks({
-        limit: LIMIT,
-        after: after
-    });
-    //console.log(response);
+    let response;
+    try {
+        response = await spotify().getAudioFeaturesForTrack(id);
+    } catch(e) {
+
+    }
     return response;
 };
 
-export const getTrackAudioFeatures = async (id) => {
+export const getTracksAudioFeatures = async (ids) => {
     await checkIfTokenHasExpired();
-    const response = await spotify().getAudioFeaturesForTrack(id);
+    const response = await spotify().getAudioFeaturesForTracks(ids);
     return response;
 };
 

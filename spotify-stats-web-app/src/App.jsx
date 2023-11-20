@@ -15,6 +15,7 @@ import BottomBar from './components/BottomBar';
 import Menu from './components/Menu';
 import ArtistProfile from './pages/ArtistProfile';
 import SongInfo from './pages/SongInfo';
+import MusicTaste from './pages/MusicTaste';
 
 export const AppContext = createContext();
 
@@ -112,6 +113,15 @@ function App() {
                 setSongTerm={setSongTerm}
               />
               <SongInfo/>
+            </div>
+          }
+        />
+        <Route
+          path='/music-taste'
+          element={
+            <div>
+              <Menu/>
+              <MusicTaste/>
             </div>
           }
         />

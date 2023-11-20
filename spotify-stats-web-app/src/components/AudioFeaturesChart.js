@@ -71,12 +71,26 @@ const AudioFeaturesChart = (props) => {
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                    display: false,
-                }
-            },
+                        display: false,
+                    }
+                },
                 scales: {
                     y: {
-                        type: 'linear'
+                        type: 'linear',
+                        ticks: {
+                            color: 'white'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)', 
+                          },
+                    },
+                    x: {
+                        ticks: {
+                            color: 'white'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)', 
+                          },
                     }
                 }
                 
