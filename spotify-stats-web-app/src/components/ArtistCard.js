@@ -13,7 +13,7 @@ const ArtistCard = (props) => {
   const navigate = useNavigate();
 
   const handleClickPlayBtn = () => {
-    setArtistId(props.artistInfo.id);
+    setArtistId(props.artistInfo?.id);
     setOpenBottomBar(true);
     setSongId(null);
   };

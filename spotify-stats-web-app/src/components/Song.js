@@ -3,12 +3,15 @@ import { List, ListItem, ListItemButton, ListItemAvatar, ListItemText, Avatar, I
 import { MenuItemButton, SongPlayButton } from '../components/MaterialComponentsCss';
 import PlayCircleFilledWhiteOutlinedIcon from '@mui/icons-material/PlayCircleFilledWhiteOutlined';
 import { AppContext } from '../App';
+import { useNavigate } from 'react-router-dom';
+import { grey, parseArtists } from '../common';
 
 
 const Song = (props) => {
   const setSongId = useContext(AppContext)?.setSongId;
   const setArtistId = useContext(AppContext)?.setArtistId;
   const setOpenBottomBar = useContext(AppContext)?.setOpenBottomBar;
+  const navigate = useNavigate();
 
   const durationInHrMinSec = (duration) => {
     let milliseconds = Math.floor((duration % 1000) / 100),
@@ -25,7 +28,8 @@ const Song = (props) => {
     return result;
   };
 
-  const handleClickPlayBtn = () => {
+  const handleClickPlayBtn = (event) => {
+    event.stopPropagation();
     setSongId(props.songInfo.id);
     setOpenBottomBar(true);
     setArtistId(null);
@@ -34,6 +38,14 @@ const Song = (props) => {
   return (
     <div>
         <MenuItemButton
+            onClick={() => navigate(`/song/${props.songInfo.id}`, 
+                {
+                    state: {
+                        songInfo: props.songInfo,
+                        component: props.component,
+                    }
+                }
+            )}
         >
             <ListItemAvatar>
                 <Avatar
@@ -41,10 +53,10 @@ const Song = (props) => {
                 />
             </ListItemAvatar>
             <ListItemText
-                primary={props.songInfo.name}
+                primary={`${props.index}. ${props.songInfo.name}`}
                 primaryTypographyProps={{color: 'white'}}
-                secondary={`${props.songInfo.album.artists[0].name} - ${props.songInfo.album.name}`}
-                secondaryTypographyProps={{color: '#b5b2b1'}}
+                secondary={`${parseArtists(props.songInfo.album.artists)} - ${props.songInfo.album.name}`}
+                secondaryTypographyProps={{color: grey}}
             />
             <SongPlayButton
                 onClick={handleClickPlayBtn}

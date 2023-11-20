@@ -17,13 +17,16 @@ const ArtistProfile = () => {
 
   useEffect(() => {
     const getArtistWrapper = async () => {
+        //const offset = 0;
+        //const result = [];
+        //while (offset < 100) {}
         const response = await getArtist(location.state.id);
         setArtistInfo(response);
     };
 
     getArtistWrapper();
   }, [])
-  console.log(artistInfo)
+  //console.log(artistInfo)
   //const artistInfo = location.state.artistInfo;
   return (
     <div>

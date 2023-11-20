@@ -1,29 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import Menu from '../components/Menu';
-import { lighterMainColor } from '../common';
+import { LOAD_AT_ONCE_LIMIT, OFFSET, lighterMainColor } from '../common';
 import { getTopArtists } from '../clients/SpotifyClient';
 import ArtistCard from '../components/ArtistCard';
 import { Grid } from '@mui/material';
 import { TailSpin } from 'react-loader-spinner';
 import BottomBar from '../components/BottomBar';
+import { SpotifyPlayButton } from '../components/MaterialComponentsCss';
+import LoadMoreButton from '../components/LoadMoreButton';
 
 
 const TopArtists = (props) => {
   const [artistsInfo, setArtistsInfo] = useState();
-  
-  const [artistId, setArtistId] = useState();
+  const [loadAtOnce, setLoadAtOnce] = useState(OFFSET);
+  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
     const getTopArtistsWrapper = async () => {
-      setArtistsInfo(null);
-      const response = await getTopArtists(props.artistTerm);
-      setArtistsInfo(response.items);
+      //setArtistsInfo(null);
+      //console.log(artistsInfo)
+      let offsetTemp = offset;
+      let result = artistsInfo ? artistsInfo : [];
+      let response;
+      while (offsetTemp < loadAtOnce) {
+        response = await getTopArtists(props.artistTerm, offsetTemp);
+        result = result.concat(response.items);
+        offsetTemp += OFFSET;
+      }
+      if (artistsInfo) {
+        result.splice(OFFSET, 1);
+      }
+      setArtistsInfo(result);
     };
     getTopArtistsWrapper();
-  }, [props.artistTerm])
+  }, [props.artistTerm, loadAtOnce])
 
+  const handleClickLoadMore = () => {
+    setLoadAtOnce(LOAD_AT_ONCE_LIMIT);
+    setOffset(OFFSET);
+  };
 
-  console.log(artistsInfo)
   return (
     <div>
       <div 
@@ -48,6 +64,10 @@ const TopArtists = (props) => {
               </div>
               }
           </Grid>
+          {artistsInfo && loadAtOnce < LOAD_AT_ONCE_LIMIT && 
+            <LoadMoreButton
+              onClick={handleClickLoadMore}
+            />}
         </div>
       </div>
     </div>

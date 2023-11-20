@@ -14,6 +14,7 @@ import TopBar from './components/TopBar';
 import BottomBar from './components/BottomBar';
 import Menu from './components/Menu';
 import ArtistProfile from './pages/ArtistProfile';
+import SongInfo from './pages/SongInfo';
 
 export const AppContext = createContext();
 
@@ -62,6 +63,7 @@ function App() {
               <Menu
                 componentIndex={0}
                 setArtistTerm={setArtistTerm}
+                term={artistTerm}
               />
               <TopArtists
                 artistTerm={artistTerm}
@@ -76,6 +78,7 @@ function App() {
               <Menu
                 componentIndex={1}
                 setSongTerm={setSongTerm}
+                term={songTerm}
               />
               <TopSongs
                 songTerm={songTerm}
@@ -95,10 +98,20 @@ function App() {
           element={
             <div>
               <Menu
-                componentIndex={3}
                 setArtistTerm={setArtistTerm}
               />
               <ArtistProfile/>
+            </div>
+          }
+        />
+        <Route
+          path='/song/:songId'
+          element={
+            <div>
+              <Menu
+                setSongTerm={setSongTerm}
+              />
+              <SongInfo/>
             </div>
           }
         />

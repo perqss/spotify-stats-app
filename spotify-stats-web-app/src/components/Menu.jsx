@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Box, List, ListItem, ListItemButton, ListItemText, ListItemIcon, Collapse } from '@mui/material';
 import MicIcon from '@mui/icons-material/Mic';
 import { mainColor } from '../common';
@@ -10,6 +10,7 @@ import HistoryIcon from '@mui/icons-material/History';
 import TopBar from './TopBar';
 import zIndex from '@mui/material/styles/zIndex';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 
 const Menu = (props) => {
@@ -22,6 +23,8 @@ const Menu = (props) => {
   const [topSongsSubMenu, setTopSongsSubMenu] = useState();
   const [showCollapse, setShowCollapse] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const count = location?.state?.count;
 
   const handleClickMenuItem = (index) => {
     setSelectedMenu(index);
@@ -31,11 +34,22 @@ const Menu = (props) => {
     if (selectedMenu === 0) {
         navigate('/top-artists');
     } else if (selectedMenu === 1) {
-        navigate('/top-songs');
+        navigate('/top-songs', {state: {count: 0}});
     } else if (selectedMenu === 2) {
         navigate('/recently-played');
     }
   }, [selectedMenu, selectedSubMenu])
+
+  useEffect(() => {
+    console.log(props.term)
+    if (props.term === 'long_term') {
+        setSelectedSubMenu(subMenuItems[0]);
+    } else if (props.term === 'medium_term') {
+        setSelectedSubMenu(subMenuItems[1]);
+    } else if (props.term === 'short_term') {
+        setSelectedSubMenu(subMenuItems[2]);
+    }
+  }, [count])
 
   const setPropsTerm = (subMenuItem, setTerm) => {
     if (subMenuItem === subMenuItems[0]) {

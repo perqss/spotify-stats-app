@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { getRecentlyPlayed } from '../clients/SpotifyClient';
+import { getRecentlyPlayed, getRecentlyPlayedAfter } from '../clients/SpotifyClient';
 import Menu from '../components/Menu';
 import { List } from '@mui/material';
 import Song from '../components/Song';
@@ -11,7 +11,6 @@ import { AppContext } from '../App';
 const RecentlyPlayed = (props) => {
   const [songsInfo, setSongsInfo] = useState();
   const [songId, setSongId] = useState();
-  //const setId = useContext(AppContext);
 
   useEffect(() => {
     const getRecentlyPlayedWrapper = async () => {
@@ -47,6 +46,7 @@ const RecentlyPlayed = (props) => {
                         index={index + 1}
                         length={songsInfo.length}
                         handleSongClick={handleSongClickRecentlyPlayed}
+                        component='/recently-played'
                     />
                 ) : 
                 <div

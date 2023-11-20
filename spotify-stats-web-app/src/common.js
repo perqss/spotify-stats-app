@@ -4,6 +4,7 @@ export const spotifyGreen = '#1DB954'
 export const mainColor = '#1e1f1e'
 export const lighterMainColor = '#2f302f'
 export const darkerMainColor = '#0f0f0f'
+export const grey = '#b5b2b1'
 
 export const scopes = [
     'user-read-currently-playing',
@@ -16,6 +17,8 @@ export const clientId = 'cdc9553f94ed4191b1fa5f8d75949d8f';
 export const clientSecret = '82a5f32c446e45cf8eb607e35759ce43';
 export const authEndPoint = 'https://accounts.spotify.com/authorize';
 export const frontendUrl = 'http://localhost:3000';
+export const LOAD_AT_ONCE_LIMIT = 99;
+export const OFFSET = 49;
 
 export const getTokenFromUrl = () => {
     return window.location.hash
@@ -27,6 +30,11 @@ export const getTokenFromUrl = () => {
 
             return initial;
         }, {});
+};
+
+export const parseArtists = (artistsInfo) => {
+    const artists = artistsInfo.map(artistInfo => artistInfo.name);
+    return artists.join(', ');
 };
 
 export const getCodeFromUrl = () => {
@@ -65,8 +73,6 @@ export const getExpirationTimestamp = () => {
 
 export const checkIfTokenHasExpired = async () => {
     const time = new Date(Date.now()).getTime();
-    //console.log(spotify().getAccessToken())
-    //console.log(getLocalAccessToken())
     if (getExpirationTimestamp() <= time) {
         await getRefreshToken();
     }
