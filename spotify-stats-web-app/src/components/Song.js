@@ -10,6 +10,7 @@ import { grey, parseArtists } from '../common';
 const Song = (props) => {
   const setSongId = useContext(AppContext)?.setSongId;
   const setArtistId = useContext(AppContext)?.setArtistId;
+  const setAlbumId = useContext(AppContext)?.setAlbumId;
   const setOpenBottomBar = useContext(AppContext)?.setOpenBottomBar;
   const navigate = useNavigate();
 
@@ -33,6 +34,7 @@ const Song = (props) => {
     setSongId(props.songInfo.id);
     setOpenBottomBar(true);
     setArtistId(null);
+    setAlbumId(null);
   }
   
   return (

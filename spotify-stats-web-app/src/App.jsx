@@ -16,6 +16,7 @@ import Menu from './components/Menu';
 import ArtistProfile from './pages/ArtistProfile';
 import SongInfo from './pages/SongInfo';
 import MusicTaste from './pages/MusicTaste';
+import TopAlbums from './pages/TopAlbums';
 
 export const AppContext = createContext();
 
@@ -23,6 +24,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [songId, setSongId] = useState();
   const [artistId, setArtistId] = useState();
+  const [albumId, setAlbumId] = useState();
   const [openBottomBar, setOpenBottomBar] = useState(false);
   const [artistTerm, setArtistTerm] = useState('long_term');
   const [songTerm, setSongTerm] = useState('long_term');
@@ -52,7 +54,8 @@ function App() {
         value={{
           setSongId,
           setArtistId,
-          setOpenBottomBar
+          setAlbumId,
+          setOpenBottomBar,
         }}
       >
       <Routes>
@@ -86,12 +89,23 @@ function App() {
               />
             </div>
           }/>
+        <Route
+          path='/top-albums'
+          element={
+            <div>
+              <Menu
+                componentIndex={2}
+              />
+              <TopAlbums/>
+            </div>
+          }
+        />
         <Route 
           path='/recently-played' 
           element={
             <div>
               <Menu
-                componentIndex={2}
+                componentIndex={3}
               />
               <RecentlyPlayed/>
             </div>
@@ -123,7 +137,7 @@ function App() {
           element={
             <div>
               <Menu
-                componentIndex={3}
+                componentIndex={4}
               />
               <MusicTaste/>
             </div>
@@ -133,6 +147,7 @@ function App() {
       <BottomBar
           songId={songId}
           artistId={artistId}
+          albumId={albumId}
           open={openBottomBar}
           setOpen={setOpenBottomBar}
         />

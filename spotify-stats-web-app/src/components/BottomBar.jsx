@@ -13,6 +13,8 @@ const BottomBar = (props) => {
         return `https://open.spotify.com/embed/track/${props.songId}?utm_source=generator`;
     } else if (props.artistId) {
         return `https://open.spotify.com/embed/artist/${props.artistId}?utm_source=generator`;
+    } else if (props.albumId) {
+        return `https://open.spotify.com/embed/album/${props.albumId}?utm_source=generator`;
     }
     return '';
   };

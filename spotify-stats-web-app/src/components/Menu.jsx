@@ -7,6 +7,7 @@ import { spotifyGreen } from '../common';
 import { MenuItemButton, SubMenuItemButton } from './MaterialComponentsCss';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import HistoryIcon from '@mui/icons-material/History';
+import AlbumIcon from '@mui/icons-material/Album';
 import TopBar from './TopBar';
 import zIndex from '@mui/material/styles/zIndex';
 import { useNavigate } from 'react-router-dom';
@@ -17,9 +18,9 @@ import QueryStatsIcon from '@mui/icons-material/QueryStats';
 const Menu = (props) => {
   const [selectedMenu, setSelectedMenu] = useState(props.componentIndex);
   const [selectedSubMenu, setSelectedSubMenu] = useState('All Time');
-  const menuItems = ['Top Artists', 'Top Songs', 'Recently Played', 'Music Taste'];
+  const menuItems = ['Top Artists', 'Top Songs', 'Top Albums', 'Recently Played', 'Music Taste'];
   const subMenuItems = ['All Time', 'Last 6 Months', 'Last 4 Weeks'];
-  const menuIcons = [<MicIcon/>, <MusicNoteIcon/>, <HistoryIcon/>, <QueryStatsIcon/>];
+  const menuIcons = [<MicIcon/>, <MusicNoteIcon/>, <AlbumIcon/>, <HistoryIcon/>, <QueryStatsIcon/>];
   const navigate = useNavigate();
   const location = useLocation();
   const count = location?.state?.count;
@@ -34,8 +35,10 @@ const Menu = (props) => {
     } else if (selectedMenu === 1) {
         navigate('/top-songs', {state: {count: 0}});
     } else if (selectedMenu === 2) {
-        navigate('/recently-played');
+        navigate('/top-albums');
     } else if (selectedMenu === 3) {
+        navigate('/recently-played');
+    } else if (selectedMenu === 4) {
         navigate('/music-taste')
     }
   }, [selectedMenu, selectedSubMenu])

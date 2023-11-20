@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 const ArtistCard = (props) => {
   const setArtistId = useContext(AppContext)?.setArtistId;
   const setSongId = useContext(AppContext)?.setSongId;
+  const setAlbumId = useContext(AppContext)?.setAlbumId;
   const setOpenBottomBar = useContext(AppContext)?.setOpenBottomBar;
   const navigate = useNavigate();
 
@@ -16,6 +17,7 @@ const ArtistCard = (props) => {
     setArtistId(props.artistInfo?.id);
     setOpenBottomBar(true);
     setSongId(null);
+    setAlbumId(null);
   };
 
   //console.log(props.artistInfo)
