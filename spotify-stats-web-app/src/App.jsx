@@ -90,7 +90,9 @@ function App() {
           path='/recently-played' 
           element={
             <div>
-              <Menu/>
+              <Menu
+                componentIndex={2}
+              />
               <RecentlyPlayed/>
             </div>
           }/>
@@ -120,7 +122,9 @@ function App() {
           path='/music-taste'
           element={
             <div>
-              <Menu/>
+              <Menu
+                componentIndex={3}
+              />
               <MusicTaste/>
             </div>
           }

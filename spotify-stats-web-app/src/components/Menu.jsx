@@ -70,6 +70,8 @@ const Menu = (props) => {
     setSelectedSubMenu(subMenuItem);
   };
 
+  console.log(selectedMenu)
+
   return (
     <div>
         <TopBar/>

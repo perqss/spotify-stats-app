@@ -27,6 +27,7 @@ const Login = (props) => {
     //                         setLocalRefreshToken(response.refresh_token);
     //                       })
     // }
+    console.log(getLocalAccessToken())
     if (code) {
         afterLogIn();
     } else if (getLocalAccessToken() !== 'undefined') {

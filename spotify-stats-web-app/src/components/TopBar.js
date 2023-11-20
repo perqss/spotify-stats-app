@@ -4,11 +4,13 @@ import { darkerMainColor } from '../common';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { FaSpotify } from 'react-icons/fa';
 import { spotifyGreen } from '../common';
+import { setLocalAccessToken } from '../common';
 
 const TopBar = () => {
 
   const handleLogout = () => {
-
+    localStorage.setItem('token', undefined);
+    localStorage.setItem('refresh_token', undefined);
   };
 
   return (

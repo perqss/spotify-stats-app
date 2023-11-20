@@ -21,7 +21,7 @@ Legend,
 LogarithmicScale,
 );
 
-const labels = ['acousticness', 'danceability', 'energy', 'instrumentalness', 'liveness', 'speechiness', 'valence'];  
+export const labels = ['acousticness', 'danceability', 'energy', 'instrumentalness', 'liveness', 'speechiness', 'valence'];  
 const data = {
   labels: labels,
   datasets: [
