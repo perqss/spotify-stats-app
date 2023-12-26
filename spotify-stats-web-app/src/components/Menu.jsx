@@ -69,6 +69,8 @@ const Menu = (props) => {
         setPropsTerm(subMenuItem, props.setArtistTerm);
     } else if (index === 1) {
         setPropsTerm(subMenuItem, props.setSongTerm);
+    } else if (index === 2) {
+        setPropsTerm(subMenuItem, props.setAlbumTerm);
     }
     setSelectedSubMenu(subMenuItem);
   };
@@ -115,7 +117,7 @@ const Menu = (props) => {
                                 </ListItemText>
                             </MenuItemButton>
                         </ListItem>
-                        {index === 0 || index === 1 ?
+                        {index === 0 || index === 1 || index === 2 ?
                             <Collapse
                                 in={selectedMenu === index}
                             >

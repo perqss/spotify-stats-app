@@ -65,7 +65,6 @@ const TopSongs = (props) => {
                 songInfo={songInfo}
                 index={index + 1}
                 length={songsInfo.length}
-                component='/top-songs'
               />
             ) : 
             <div

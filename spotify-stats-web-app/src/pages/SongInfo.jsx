@@ -15,8 +15,7 @@ import { useNavigate } from 'react-router-dom';
 
 const SongInfo = () => {
   const location = useLocation();
-  const songInfo = location.state.songInfo;
-  const component = location.state.component;
+  const songInfo = location?.state?.songInfo;
   const [audioFeatures, setAudioFeatures] = useState();
   const [audioAnalysis, setAudioAnalysis] = useState();
   const navigate = useNavigate();
@@ -43,7 +42,6 @@ const SongInfo = () => {
     getTrackAudioAnalysisWrapper();
   }, [])
 
-  console.log(audioAnalysis);
   return (
     <div>
         <IconButton
@@ -51,7 +49,7 @@ const SongInfo = () => {
                 top: '70px',
                 left: '250px',
             }}
-            onClick={() => navigate(component)}
+            onClick={() => navigate(-1)}
         >
             <ArrowBackIosNewIcon
                 sx={{

@@ -43,7 +43,6 @@ const RecentlyPlayed = (props) => {
                         index={index + 1}
                         length={songsInfo.length}
                         handleSongClick={handleSongClickRecentlyPlayed}
-                        component='/recently-played'
                     />
                 ) : 
                 <div

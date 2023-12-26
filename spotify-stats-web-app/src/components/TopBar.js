@@ -5,12 +5,14 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { FaSpotify } from 'react-icons/fa';
 import { spotifyGreen } from '../common';
 import { setLocalAccessToken } from '../common';
+import { useNavigate } from 'react-router-dom';
 
 const TopBar = () => {
-
+  const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.setItem('token', undefined);
     localStorage.setItem('refresh_token', undefined);
+    navigate('/');
   };
 
   return (

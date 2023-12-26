@@ -28,6 +28,7 @@ function App() {
   const [openBottomBar, setOpenBottomBar] = useState(false);
   const [artistTerm, setArtistTerm] = useState('long_term');
   const [songTerm, setSongTerm] = useState('long_term');
+  const [albumTerm, setAlbumTerm] = useState('long_term');
 
   useEffect(() => {
     const fetchLogged = async () => {
@@ -95,8 +96,12 @@ function App() {
             <div>
               <Menu
                 componentIndex={2}
+                setAlbumTerm={setAlbumTerm}
+                term={albumTerm}
               />
-              <TopAlbums/>
+              <TopAlbums
+                albumTerm={albumTerm}
+              />
             </div>
           }
         />

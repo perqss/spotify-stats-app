@@ -73,3 +73,15 @@ export const getTop99 = async (loadAtOnce, func, term) => {
     }
     result.splice(49, 1);
 };
+
+export const getAlbum = async (id) => {
+    await checkIfTokenHasExpired();
+    const response = await spotify().getAlbum(id);
+    return response;
+}
+
+export const getAlbumTracks = async (id) => {
+    await checkIfTokenHasExpired();
+    const response = await spotify().getAlbumTracks(id);
+    return response;
+}

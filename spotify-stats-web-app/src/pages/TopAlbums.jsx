@@ -19,18 +19,18 @@ const TopAlbums = (props) => {
   useEffect(() => {
     const getTopSongsWrapper = async () => {
       let offsetTemp = offset;
-      let response = await getTopSongs('long_term');
+      let response = await getTopSongs(props.albumTerm);
       let result = [];
       result = result.concat(response.items);
-      response = await getTopSongs('long_term', OFFSET);
+      response = await getTopSongs(props.albumTerm, OFFSET);
       result = result.concat(response.items);
       result.splice(OFFSET, 1);
       setSongsInfo(result);
     };
 
     getTopSongsWrapper();
-  }, [])
-
+  }, [props.albumTerm])
+  console.log(props.albumTerm)
   useEffect(() => {
     if (songsInfo) {
         let result = {}

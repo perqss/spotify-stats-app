@@ -14,20 +14,17 @@ const ArtistProfile = () => {
   const location = useLocation();
   const [artistInfo, setArtistInfo] = useState();
   const navigate = useNavigate();
-
+  console.log(location)
   useEffect(() => {
     const getArtistWrapper = async () => {
-        //const offset = 0;
-        //const result = [];
-        //while (offset < 100) {}
-        const response = await getArtist(location.state.id);
+        const response = await getArtist(location?.state?.id);
         setArtistInfo(response);
     };
 
     getArtistWrapper();
   }, [])
-  //console.log(artistInfo)
-  //const artistInfo = location.state.artistInfo;
+
+
   return (
     <div>
         <IconButton
@@ -35,7 +32,7 @@ const ArtistProfile = () => {
                 top: '70px',
                 left: '250px',
             }}
-            onClick={() => navigate('/top-artists')}
+            onClick={() => navigate(-1)}
         >
             <ArrowBackIosNewIcon
                 sx={{
