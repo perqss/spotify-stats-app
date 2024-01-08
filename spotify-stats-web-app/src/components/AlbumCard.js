@@ -21,9 +21,14 @@ const AlbumCard = (props) => {
         setArtistId(null);
     };
 
+    const handleClickAlbum = () => {
+      navigate(`/album/${props.album[1].id}`);
+    }
+
     return (
         <Card sx={{backgroundColor: mainColor, margin: 1}}>
           <CardActionArea
+            onClick={handleClickAlbum}
           >
             <CardMedia
               sx={{ height: '200px'}}

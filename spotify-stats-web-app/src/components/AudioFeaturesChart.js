@@ -53,7 +53,6 @@ const data = {
 const AudioFeaturesChart = (props) => {
   data.datasets[0].data = [];
   data.datasets[0].data = labels.map(label => props.audioFeatures[label]);
-  console.log(data.datasets[0].data)
 
   return (
     <div

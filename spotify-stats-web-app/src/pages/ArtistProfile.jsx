@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Avatar } from '@mui/material';
 import { lighterMainColor, spotifyGreen } from '../common';
-import { getArtist } from '../clients/SpotifyClient';
+import { getArtist, getRecommendations } from '../clients/SpotifyClient';
 import { TailSpin } from 'react-loader-spinner';
 import { Button, Typography, Paper, IconButton } from '@mui/material';
 import { mainColor } from '../common';
@@ -11,22 +11,21 @@ import { useNavigate } from 'react-router-dom';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 const ArtistProfile = () => {
-  const location = useLocation();
+  const { artistId } = useParams();
   const [artistInfo, setArtistInfo] = useState();
   const navigate = useNavigate();
-  console.log(location)
+
   useEffect(() => {
     const getArtistWrapper = async () => {
-        const response = await getArtist(location?.state?.id);
+        const response = await getArtist(artistId);
         setArtistInfo(response);
     };
 
     getArtistWrapper();
   }, [])
-
-
+  
   return (
-    <div>
+    <div style={{overflowX: 'hidden'}}>
         <IconButton
             sx={{
                 top: '70px',

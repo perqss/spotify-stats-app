@@ -20,9 +20,8 @@ const ArtistCard = (props) => {
     setAlbumId(null);
   };
 
-  //console.log(props.artistInfo)
   const handleClickAritst = () => {
-    navigate(`/artist/${props.artistInfo.id}`, {state: {id: props.artistInfo.id}});
+    navigate(`/artist/${props.artistInfo.id}`);
   };
 
   return (

@@ -25,7 +25,6 @@ const MusicTaste = () => {
   useEffect(() => {
     const getTopSongsWrapper = async () => {
         let response = await getTopSongs('long_term');
-        console.log(response);
         let result = response.items;
         result.splice(OFFSET, 1);
         response = await getTopSongs('long_term', OFFSET);
@@ -41,7 +40,6 @@ const MusicTaste = () => {
     const getTracksAudioFeaturesWrapper = async () => {
         const response = await getTracksAudioFeatures(trackIds);
         const audioFeatures = response.audio_features
-        console.log(response.audio_features);
         audioFeatures.forEach(audioFeature => {
           Object.keys(audioFeature).forEach(key => {
             if (labels.includes(key) && audioFeature[key] > 0.5) {
@@ -57,7 +55,6 @@ const MusicTaste = () => {
           tracksStats[key] = Math.round(tracksStats[key] / 99 * 100);
         })
         
-        console.log(data.datasets[0].data)
         setBarData(Object.keys(tracksStats).map(key => tracksStats[key]));
       };
       if (trackIds) {
@@ -97,16 +94,6 @@ const MusicTaste = () => {
       }
     ]
   }
-
-  // useEffect(() => {
-  //   console.log('useefffct')
-  //   data.datasets[0].data = Object.keys(tracksStats).map(key => tracksStats[key]);
-  //   setBarData(data.datasets[0].data)
-  // }, [tracksStats])
-
-  
-  console.log(data.datasets[0].data)
-  console.log(tracksStats)
 
   return (
     <div

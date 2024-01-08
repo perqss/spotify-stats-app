@@ -26,7 +26,6 @@ const RecentlyPlayed = (props) => {
     setSongId(id);
   };
 
-  console.log(songId)
   return (
     <div>
         <div

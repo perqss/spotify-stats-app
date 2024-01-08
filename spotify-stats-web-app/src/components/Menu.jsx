@@ -44,7 +44,6 @@ const Menu = (props) => {
   }, [selectedMenu, selectedSubMenu])
 
   useEffect(() => {
-    console.log(props.term)
     if (props.term === 'long_term') {
         setSelectedSubMenu(subMenuItems[0]);
     } else if (props.term === 'medium_term') {
@@ -75,14 +74,13 @@ const Menu = (props) => {
     setSelectedSubMenu(subMenuItem);
   };
 
-  console.log(selectedMenu)
-
   return (
     <div>
         <TopBar/>
         <Box 
             sx={{
-                maxWidth: '200px', 
+                maxWidth: '200px',
+                width: '100%',
                 height: '100vh', 
                 display: 'flex', 
                 flexDirection: 'column', 

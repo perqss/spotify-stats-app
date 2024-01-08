@@ -18,6 +18,7 @@ export const authEndPoint = 'https://accounts.spotify.com/authorize';
 export const frontendUrl = 'http://localhost:3000';
 export const LOAD_AT_ONCE_LIMIT = 99;
 export const OFFSET = 49;
+export const githubUrl = 'https://github.com/perqss/spotify-stats-app';
 
 export const getTokenFromUrl = () => {
     return window.location.hash
@@ -36,6 +37,10 @@ export const parseArtists = (artistsInfo) => {
     return artists.join(', ');
 };
 
+export const getReleaseDateYear = (releaseDate) => {
+    return releaseDate.substring(0, 4);
+  };
+
 export const getCodeFromUrl = () => {
     const params = new URLSearchParams(window.location.search);
     const code = params.get('code');
@@ -45,7 +50,6 @@ export const getCodeFromUrl = () => {
 const EXPIRATION_TIME = 3600 * 1000;
 
 export const setLocalAccessToken = (token) => {
-    setExpirationTimestamp();
     localStorage.setItem('token', token);
 };
 
@@ -77,32 +81,6 @@ export const checkIfTokenHasExpired = async () => {
     }
 };
 
-export const checkAuth = async () => {
-	// No access token in storage, throw error
-    //('checkauth')
-	if (!getLocalAccessToken()) {
-		return;
-	}
-
-	// Token has expired, get new one
-	// if (new Date().getTime() > getExpirationTimestamp()) {
-	// 	await refreshAccessToken();
-	// 	window.location.reload();
-	// 	return;
-	// }
-
-	spotify().setAccessToken(getLocalAccessToken());
-	try {
-		// Token verified
-		await spotify().getMe();
-        //console.log(spotify().getAccessToken())
-		//runExpirationChecker();
-	} catch (e) {
-		// Token invalid
-		throw e;
-	}
-};
-
 export const getTokens = async (code) => {
     const url = "https://accounts.spotify.com/api/token";
     const payload = {
@@ -124,7 +102,6 @@ export const getTokens = async (code) => {
     setLocalAccessToken(responseJson.access_token);
     setExpirationTimestamp();
     setLocalRefreshToken(responseJson.refresh_token);
-    //console.log(responseJson.refresh_token)
     spotify().setAccessToken(responseJson.access_token);
 };
 
@@ -150,7 +127,6 @@ export const getRefreshToken = async () => {
     setLocalAccessToken(responseJson.access_token);
     setExpirationTimestamp();
     setLocalRefreshToken(responseJson.refresh_token);
-    //console.log(responseJson.refresh_token)
     spotify().setAccessToken(responseJson.access_token);
 };
 
@@ -187,5 +163,3 @@ export const getLoginUrl = async () => {
 
     return loginUrl;
 }
-
-//console.log(localStorage.getItem('code_verifier'))

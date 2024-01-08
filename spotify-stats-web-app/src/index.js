@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Spotify from 'spotify-web-api-js';
-import { getLocalAccessToken } from './common';
+import { getLocalAccessToken, lighterMainColor } from './common';
 
 const s = new Spotify();
 
@@ -15,7 +15,9 @@ export const spotify = () => {
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <App/>
+    <div>
+        <App/>
+    </div>
 );
 
 // If you want to start measuring performance in your app, pass a function

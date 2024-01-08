@@ -1,32 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { Avatar, Paper, Typography, Box, IconButton } from '@mui/material';
 import { lighterMainColor } from '../common';
 import { TailSpin } from 'react-loader-spinner';
 import { mainColor } from '../common';
 import { parseArtists } from '../common';
 import { SpotifyPlayButton } from '../components/MaterialComponentsCss';
-import { grey } from '../common';
-import { getTrackAudioFeatures, getTrackAudioAnalysis } from '../clients/SpotifyClient';
+import { grey, getReleaseDateYear } from '../common';
+import { getTrackAudioFeatures, getTrackAudioAnalysis, getTrack } from '../clients/SpotifyClient';
 import AudioFeaturesChart from '../components/AudioFeaturesChart';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 const SongInfo = () => {
-  const location = useLocation();
-  const songInfo = location?.state?.songInfo;
+  const { songId } = useParams();
+  const [songInfo, setSongInfo] = useState();
   const [audioFeatures, setAudioFeatures] = useState();
   const [audioAnalysis, setAudioAnalysis] = useState();
   const navigate = useNavigate();
 
-  const getReleaseDateYear = (releaseDate) => {
-    return releaseDate.substring(0, 4);
-  };
-
   useEffect(() => {
     const getTrackAudioFeaturesWrapper = async () => {
-      const response = await getTrackAudioFeatures(songInfo.id);
+      const response = await getTrackAudioFeatures(songId);
       setAudioFeatures(response);
     };
 
@@ -35,15 +30,24 @@ const SongInfo = () => {
 
   useEffect(() => {
     const getTrackAudioAnalysisWrapper = async () => {
-      const response = await getTrackAudioAnalysis(songInfo.id);
+      const response = await getTrackAudioAnalysis(songId);
       setAudioAnalysis(response);
     };
 
     getTrackAudioAnalysisWrapper();
   }, [])
 
+  useEffect(() => {
+    const getTrackWrapper = async () => {
+      const response = await getTrack(songId);
+      setSongInfo(response);
+    }
+
+    getTrackWrapper();
+  }, [])
+  
   return (
-    <div>
+    <div style={{overflowX: 'hidden'}}>
         <IconButton
             sx={{
                 top: '70px',

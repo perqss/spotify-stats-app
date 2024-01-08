@@ -36,28 +36,29 @@ const Song = (props) => {
     setArtistId(null);
     setAlbumId(null);
   }
+
+  const handleSecondary = () => {
+    if (props.albumInfo) {
+        return `${parseArtists(props.songInfo.artists)}`;
+    } else {
+        return `${parseArtists(props.songInfo.album.artists)} - ${props.songInfo.album.name}`;
+    }
+  }
   
   return (
     <div>
         <MenuItemButton
-            onClick={() => navigate(`/song/${props.songInfo.id}`, 
-                {
-                    state: {
-                        songInfo: props.songInfo,
-                        component: props.component,
-                    }
-                }
-            )}
+            onClick={() => navigate(`/song/${props.songInfo.id}`)}
         >
             <ListItemAvatar>
                 <Avatar
-                    src={props.songInfo.album.images[2].url}
+                    src={props.albumInfo ? props.albumInfo.images[1].url : props.songInfo.album.images[2].url}
                 />
             </ListItemAvatar>
             <ListItemText
                 primary={`${props.index}. ${props.songInfo.name}`}
                 primaryTypographyProps={{color: 'white'}}
-                secondary={`${parseArtists(props.songInfo.album.artists)} - ${props.songInfo.album.name}`}
+                secondary={handleSecondary()}
                 secondaryTypographyProps={{color: grey}}
             />
             <SongPlayButton

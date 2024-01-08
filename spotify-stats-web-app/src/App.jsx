@@ -9,14 +9,13 @@ import Login from './pages/Login';
 import TopArtists from './pages/TopArtists';
 import TopSongs from './pages/TopSongs';
 import RecentlyPlayed from './pages/RecentlyPlayed';
-import { checkAuth } from './common';
-import TopBar from './components/TopBar';
 import BottomBar from './components/BottomBar';
 import Menu from './components/Menu';
 import ArtistProfile from './pages/ArtistProfile';
 import SongInfo from './pages/SongInfo';
 import MusicTaste from './pages/MusicTaste';
 import TopAlbums from './pages/TopAlbums';
+import AlbumInfo from './pages/AlbumInfo';
 
 export const AppContext = createContext();
 
@@ -29,25 +28,6 @@ function App() {
   const [artistTerm, setArtistTerm] = useState('long_term');
   const [songTerm, setSongTerm] = useState('long_term');
   const [albumTerm, setAlbumTerm] = useState('long_term');
-
-  useEffect(() => {
-    const fetchLogged = async () => {
-      try {
-				//await checkAuth();
-        //setIsAuthenticated(true);
-			} catch (e) {
-        //setIsAuthenticated(false);
-        throw e;
-			}
-    }
-    fetchLogged();
-  }, []);
-
-  // if (!isAuthenticated) {
-  //   return (
-  //     <></>
-  //   )
-  // }
 
   return (
     <Router>
@@ -145,6 +125,17 @@ function App() {
                 componentIndex={4}
               />
               <MusicTaste/>
+            </div>
+          }
+        />
+        <Route
+          path='/album/:albumId'
+          element={
+            <div>
+              <Menu
+                setAlbumTerm={setAlbumTerm}
+              />
+              <AlbumInfo/>
             </div>
           }
         />

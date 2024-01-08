@@ -30,7 +30,7 @@ const TopAlbums = (props) => {
 
     getTopSongsWrapper();
   }, [props.albumTerm])
-  console.log(props.albumTerm)
+  
   useEffect(() => {
     if (songsInfo) {
         let result = {}
@@ -49,9 +49,7 @@ const TopAlbums = (props) => {
                 }
             }     
         })
-        //console.log(result);
         const entries = Object.entries(result);
-        //console.log(entries);
         entries.sort((a, b) => {
             // Sort by count in decreasing order
             if (b[1].count !== a[1].count) {
@@ -61,7 +59,6 @@ const TopAlbums = (props) => {
             return a[1].indexSum - b[1].indexSum;
         });
         setAlbums(entries);
-        console.log(entries);
     }
   }, [songsInfo])
 

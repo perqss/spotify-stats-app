@@ -11,23 +11,14 @@ import { spotify } from '..';
 const Login = (props) => {
   const navigate = useNavigate();
   const [loginUrl, setLoginUrl] = useState('');
-  //const [token, setToken] = useState('');
+
   useEffect(() => {
     const code = getCodeFromUrl();
     const afterLogIn = async () => {
         await getTokens(code);
         navigate('/top-artists');
     }
-    //const spotifyToken = getTokenFromUrl().access_token;
-    
-    // if (code) {
-    //     authWithCode(code).then(data => data.json())
-    //                       .then(response => {
-    //                         setLocalAccessToken(response.access_token);
-    //                         setLocalRefreshToken(response.refresh_token);
-    //                       })
-    // }
-    console.log(getLocalAccessToken())
+
     if (code) {
         afterLogIn();
     } else if (getLocalAccessToken() !== 'undefined') {
@@ -39,8 +30,6 @@ const Login = (props) => {
         refreshToken();
     }
   }, []);
-
-  // if (token in localstorage) navigate to top artists
 
   useEffect(() => {
     getLoginUrl().then(login => setLoginUrl(login))
