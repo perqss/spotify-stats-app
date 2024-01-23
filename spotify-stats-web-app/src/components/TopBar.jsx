@@ -26,7 +26,9 @@ const TopBar = () => {
   }, [])
 
   const handleLogout = () => {
-    localStorage.clear();
+    localStorage.setItem('token', undefined);
+    localStorage.setItem('refresh_token', undefined);
+    localStorage.setItem('token_expiration_timestamp', undefined);
     navigate('/');
   };
 
