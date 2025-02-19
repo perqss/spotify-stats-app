@@ -20,7 +20,6 @@ import AlbumInfo from './pages/AlbumInfo';
 export const AppContext = createContext();
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [songId, setSongId] = useState();
   const [artistId, setArtistId] = useState();
   const [albumId, setAlbumId] = useState();

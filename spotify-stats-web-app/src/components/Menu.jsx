@@ -1,15 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Box, List, ListItem, ListItemButton, ListItemText, ListItemIcon, Collapse } from '@mui/material';
+import { Box, List, ListItem, ListItemText, ListItemIcon, Collapse } from '@mui/material';
 import MicIcon from '@mui/icons-material/Mic';
 import { mainColor } from '../common';
-import { FaSpotify } from 'react-icons/fa'
-import { spotifyGreen } from '../common';
 import { MenuItemButton, SubMenuItemButton } from './MaterialComponentsCss';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import HistoryIcon from '@mui/icons-material/History';
 import AlbumIcon from '@mui/icons-material/Album';
 import TopBar from './TopBar';
-import zIndex from '@mui/material/styles/zIndex';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';

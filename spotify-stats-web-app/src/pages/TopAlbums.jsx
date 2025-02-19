@@ -35,7 +35,7 @@ const TopAlbums = (props) => {
     if (songsInfo) {
         let result = {}
         songsInfo.forEach((song, index) => {
-            if (song.album.album_type === 'ALBUM') {
+            if (song.album.album_type === 'album') {
                 if (!(song.album.name in result)) {
                     result[song.album.name] = {
                         indexSum: index,

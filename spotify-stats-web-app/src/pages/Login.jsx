@@ -2,12 +2,8 @@ import React, { useState, useEffect } from 'react';
 import logo from '../logo.svg';
 import '../App.css';
 import { Button } from '@mui/material';
-import  { spotifyGreen, getLoginUrl, getTokenFromUrl, setLocalAccessToken, getLocalAccessToken, getCodeFromUrl, getTokens, 
-  setLocalRefreshToken, getRefreshToken, checkIfTokenHasExpired } from '../common';
+import  { spotifyGreen, getLoginUrl, getLocalAccessToken, getCodeFromUrl, getTokens, checkIfTokenHasExpired } from '../common';
 import { useNavigate } from 'react-router-dom';
-import TopArtists from './TopArtists';
-import { spotify } from '..';
-
 const Login = (props) => {
   const navigate = useNavigate();
   const [loginUrl, setLoginUrl] = useState('');
